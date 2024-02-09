@@ -1,0 +1,22 @@
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        l, r = 0, 1 #left = sell, right = buy
+        maxP = 0 # default max value
+
+        # if price on the left is less than price on the right, calculate 
+        # the profit, then compare current max profit to the previously calculated
+        # max profit. 
+        
+        # otherwise, replace the right pointer with the left one
+        
+        # always shift the right pointer to the right at the end
+        while r < len(prices):
+            if prices[l] < prices[r]:
+                profit = prices[r] - prices[l]
+                maxP = max(maxP, profit)
+
+            else:
+                l = r
+            r += 1
+
+        return maxP
