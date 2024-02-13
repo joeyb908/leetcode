@@ -21,32 +21,43 @@ input = "dvdf"
 
 def longestSubstring(input):
     '''find length of longest substring without repeating characters'''
-    maxLength = 0  # default max length of 1 since a single character is 1 long
-    l, r = 0, 1    # left = start of string, right = left + 1
+    maxLength = 0  # default max length
+    l, r = 0, 1    # left = start of string, 2nd character in string
     strLength = len(input)
-    seenCharacters = {}
+    seenCharacters = set()
 
     if len(input) == 1:
         return 1
-    while r < strLength:
-        # check to see if l and right pointers are same
-        if ord(input[l]) == ord(input[l+1]):
-            maxLength = max(1, maxLength)
-            l = r
-            r += 1
-            seenCharacters.clear()
+    elif len(input) == 0:
+        return 0
+    
 
-        elif ord(input[r]) in seenCharacters.values():
-            maxLength = max(maxLength, len(seenCharacters))
+    while r < strLength:
+        # initialize seenCharacters with first character
+        if len(seenCharacters) == 0:
+            seenCharacters.add(ord(input[l]))
+
+        # check to see if r character has already been seen
+        if ord(input[r]) in seenCharacters:
+            seenCharacters.remove(ord(input[l]))
             l += 1
-            r = l + 1
-            seenCharacters.clear()
+
+            # if we reach end of string
+            if l == strLength:
+                return max(maxLength, len(seenCharacters))
             
+            # if left pointer reaches right pointer and there's more characters
+            if l == r:
+                r += 1
+
+            seenCharacters.add(ord(input[l]))
+            
+        # if r character has not been seen, add it to seenCharacters
         else:
-            seenCharacters[l] = ord(input[l])
-            seenCharacters[r] = ord(input[r])
-            maxLength = max(maxLength, len(seenCharacters))
+            seenCharacters.add(ord(input[r]))
             r += 1
+
+        maxLength = max(maxLength, r - l)
 
     return maxLength
 
