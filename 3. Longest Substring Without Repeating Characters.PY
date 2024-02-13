@@ -29,28 +29,24 @@ def longestSubstring(input):
     if len(input) == 1:
         return 1
     while r < strLength:
-        lAscVal = ord(input[l])
-        rAscVal = ord(input[r])
         # check to see if l and right pointers are same
         if ord(input[l]) == ord(input[l+1]):
             maxLength = max(1, maxLength)
             l = r
             r += 1
-            seenCharacters = {}
+            seenCharacters.clear()
 
         elif ord(input[r]) in seenCharacters.values():
             maxLength = max(maxLength, len(seenCharacters))
             l += 1
             r = l + 1
-            seenCharacters = {}
+            seenCharacters.clear()
             
         else:
             seenCharacters[l] = ord(input[l])
             seenCharacters[r] = ord(input[r])
             maxLength = max(maxLength, len(seenCharacters))
             r += 1
-
-        
 
     return maxLength
 
