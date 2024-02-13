@@ -17,48 +17,45 @@
 # Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
 
 
-input = "dvdf"
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
 
-def longestSubstring(input):
-    '''find length of longest substring without repeating characters'''
-    maxLength = 0  # default max length
-    l, r = 0, 1    # left = start of string, 2nd character in string
-    strLength = len(input)
-    seenCharacters = set()
+        maxLength = 0  # default max length of 1 since a single character is 1 long
+        l, r = 0, 1    # left = start of string, right = left + 1
+        strLen = len(s)
+        seenCharacters = set()
 
-    if len(input) == 1:
-        return 1
-    elif len(input) == 0:
-        return 0
-    
+        if len(s) == 1:
+            return 1
+        elif len(s) == 0:
+            return 0
+        
+        while r < strLen:
+            # initialize seenCharacters
+            if len(seenCharacters) == 0:
+                seenCharacters.add(ord(s[l]))
+                
+            # check to see if r character has already been seen
+            if ord(s[r]) in seenCharacters:
+                seenCharacters.remove(ord(s[l]))
+                l += 1
+                
+                # reach end of string
+                if l == strLen:
+                    return max(maxLength, len(seenCharacters))
+                
+                # if left pointer meets right pointer but we're not at end of string
+                if l == r:
+                    r+=1
+                    
+                seenCharacters.add(ord(s[l]))
 
-    while r < strLength:
-        # initialize seenCharacters with first character
-        if len(seenCharacters) == 0:
-            seenCharacters.add(ord(input[l]))
-
-        # check to see if r character has already been seen
-        if ord(input[r]) in seenCharacters:
-            seenCharacters.remove(ord(input[l]))
-            l += 1
-
-            # if we reach end of string
-            if l == strLength:
-                return max(maxLength, len(seenCharacters))
-            
-            # if left pointer reaches right pointer and there's more characters
-            if l == r:
+            # right character not seen yet, add it to set
+            else:
+                seenCharacters.add(ord(s[r]))
                 r += 1
+                
+            # gets max length at end if last character is not repeated
+            maxLength = max(maxLength, r - l)
 
-            seenCharacters.add(ord(input[l]))
-            
-        # if r character has not been seen, add it to seenCharacters
-        else:
-            seenCharacters.add(ord(input[r]))
-            r += 1
-
-        maxLength = max(maxLength, r - l)
-
-    return maxLength
-
-print(longestSubstring(input))
+        return maxLength
