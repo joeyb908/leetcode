@@ -1,3 +1,5 @@
+# leetcode URL - https://leetcode.com/problems/longest-repeating-character-replacement/
+
 # You are given a string s and an integer k. You can choose any character of the string and change it to 
 # any other uppercase English character. You can perform this operation at most k times.
 
@@ -43,26 +45,24 @@
 # We would then slide the left pointer over one and recalculate.
 
 
-def subStringLength(s:str, k:int) -> int:
-    l, r = 0, 0 # both left and pointers start at 0 because 1st character will the longest default substring for k=0
-    maxSubStringLength = 0
-    charCount = {}
-    maxFreq = 0
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        l, r = 0, 0 # both left and pointers start at 0 because 1st character will the longest default substring for k=0
+        maxSubStringLength = 0
+        charCount = {}
+        maxFreq = 0 
 
-    for r in range(len(s)):
-        charCount[s[r]] = 1 + charCount.get(s[r], 0) # increase count for each character, if it doesn't exist yet, set it to 0
-        maxFreq = max(charCount[s[r]], maxFreq) # get the max frequency of whatever character is repeated the most
+        for r in range(len(s)):
+            charCount[s[r]] = 1 + charCount.get(s[r], 0) # increase count for each character, if it doesn't exist yet, set it to 0
+            maxFreq = max(charCount[s[r]], maxFreq) # get the max frequency of whatever character is repeated the most
 
-        # make sure current window for current character is valid (don't need to subtract the current count of whatever letter
-        # we're on because it's irrelevant. We only care about the maxFreq throughout the entire operation, we never have to
-        # recalculate for a lower value since it would always return a smaller subString length)
-        while (r - l + 1) - maxFreq > k: 
-            charCount[s[l]] -= 1
-            l += 1
+            # make sure current window for current character is valid (don't need to subtract the current count of whatever letter
+            # we're on because it's irrelevant. We only care about the maxFreq throughout the entire operation, we never have to
+            # recalculate for a lower value since it would always return a smaller subString length)
+            while (r - l + 1) - maxFreq > k: 
+                charCount[s[l]] -= 1
+                l += 1
 
-        # return max substring length so far from either current max or current window size
-        maxSubStringLength = max(maxSubStringLength, r - l + 1)
-    return maxSubStringLength
-
-
-print(subStringLength("ABCCCC", 1))
+            # return max substring length so far from either current max or current window size
+            maxSubStringLength = max(maxSubStringLength, r - l + 1)
+        return maxSubStringLength
