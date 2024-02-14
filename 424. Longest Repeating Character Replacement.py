@@ -44,26 +44,25 @@
 
 
 def subStringLength(s:str, k:int) -> int:
-    l, r = 0, 1
-    repeatedSubstringLengths = []
-    i = 0
-    replaceChars = k
+    l, r = 0, 0 # both left and pointers start at 0 because 1st character will the longest default substring for k=0
     maxSubStringLength = 0
+    charCount = {}
+    maxFreq = 0
 
-    while i < len(s):
-        count = 0
-        while i < len(s) - 1 and s[i] == s[i+1]:
-            count += 1
-            i += 1
+    for r in range(len(s)):
+        charCount[s[r]] = 1 + charCount.get(s[r], 0) # increase count for each character, if it doesn't exist yet, set it to 0
+        maxFreq = max(charCount[s[r]], maxFreq) # get the max frequency of whatever character is repeated the most
 
-        repeatedSubstringLengths.append((s[i], count + 1))
-        i += 1
+        # make sure current window for current character is valid (don't need to subtract the current count of whatever letter
+        # we're on because it's irrelevant. We only care about the maxFreq throughout the entire operation, we never have to
+        # recalculate for a lower value since it would always return a smaller subString length)
+        while (r - l + 1) - maxFreq > k: 
+            charCount[s[l]] -= 1
+            l += 1
 
-    while l < len(repeatedSubstringLengths):
-        replaceChars = k
-        while replaceChars > 0:
-            if repeatedSubstringLengths[l][1] - replaceChars > 0:
-                
-            
+        # return max substring length so far from either current max or current window size
+        maxSubStringLength = max(maxSubStringLength, r - l + 1)
+    return maxSubStringLength
 
-    return repeatedSubstringLengths
+
+print(subStringLength("ABCCCC", 1))
