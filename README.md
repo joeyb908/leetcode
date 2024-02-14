@@ -2,7 +2,7 @@
 
 A collection of solutions from practicing data structures and algorithms. All solutions will be done in Python 3.
 
-Currently Progress:
+Current Progress:
 | #   	| Name                                           	| Problem Type   	| Solution Time Complexity 	|
 |-----:	|------------------------------------------------	|----------------	|------------	|
 | 121 	| [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)                	| Sliding Window 	| O(n)       	|
