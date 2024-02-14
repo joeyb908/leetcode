@@ -33,11 +33,22 @@
 # If I change A to the left, I get a substring of length 4 --> AABBBBA
 # If I change A to the right, I get a subtring of length 3 --> AABABBB
 
+# More efficient to use a hashmap to store the character and the number of times it appears
+# Then use a sliding window and update the hashamp as we go along
+# Calculate the max length by taking the max length of all the characters
+# while subtracting the highest frequency character from the hashmap
+# ex. A - 7, B - 3 would be 10 - 7 = 3. If k = 3, 3 >= 3 so that would work
+# allowing us to have a total length of 6
+# if k = 2, then 10 - 7 = 3. 3 > 2 so that doesn't work in this case.
+# We would then slide the left pointer over one and recalculate.
 
-def longestRepeatingSubstring(s:str, k:int):
+
+def subStringLength(s:str, k:int) -> int:
     l, r = 0, 1
-    repeatedSubstring = []
+    repeatedSubstringLengths = []
     i = 0
+    replaceChars = k
+    maxSubStringLength = 0
 
     while i < len(s):
         count = 0
@@ -45,9 +56,14 @@ def longestRepeatingSubstring(s:str, k:int):
             count += 1
             i += 1
 
-        repeatedSubstring.append((s[i], count + 1))
+        repeatedSubstringLengths.append((s[i], count + 1))
         i += 1
 
-    print(repeatedSubstring)
+    while l < len(repeatedSubstringLengths):
+        replaceChars = k
+        while replaceChars > 0:
+            if repeatedSubstringLengths[l][1] - replaceChars > 0:
+                
+            
 
-longestRepeatingSubstring("AABABBA", 2)
+    return repeatedSubstringLengths
