@@ -33,3 +33,21 @@
 # If I change A to the left, I get a substring of length 4 --> AABBBBA
 # If I change A to the right, I get a subtring of length 3 --> AABABBB
 
+
+def longestRepeatingSubstring(s:str, k:int):
+    l, r = 0, 1
+    repeatedSubstring = []
+    i = 0
+
+    while i < len(s):
+        count = 0
+        while i < len(s) - 1 and s[i] == s[i+1]:
+            count += 1
+            i += 1
+
+        repeatedSubstring.append((s[i], count + 1))
+        i += 1
+
+    print(repeatedSubstring)
+
+longestRepeatingSubstring("AABABBA", 2)
