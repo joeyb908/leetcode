@@ -28,7 +28,7 @@ class Solution:
         for i in range(len(s1)):
             s1Count[s1[i]] = 1 + s1Count.get(s1[i], 0)
 
-        # Create hashmap of s2
+        # Create hashmap of s2 within acceptable window
         for r in range(len(s2)):
             s2Count[s2[r]] = 1 + s2Count.get(s2[r], 0)
 
