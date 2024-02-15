@@ -20,32 +20,15 @@
 # Explanation: Both 'a's from t must be included in the window.
 # Since the largest window of s only has one 'a', return empty string.
 
-# My solution - Get length of t, the window for length of t can be len(t) + len(t-1)
-# ex. t = 3, max length can be 3 + (3 - 1) = 5 long because one character
-# has to match at beginning and at end in worst case.
+# Use sliding window to get an initial acceptable value. If one match is found,
+# increase left pointer once and continuously move left pointer until match isn't found
+# anymore. Then move right pointer until new match is found and repeat the process.
 
 def minWindowSubstring(s:str, t:str) -> str:
     if len(t) > len(s):
         return ""
     
-    l, r = 0, 0
-    tCount = {}
-    sCount = {}
-    curMinString = []
-    curMinStringLen = 9999999999999
 
-    i=0
-    for i in range(len(t)):
-        tCount[s[i]] = 1 + tCount.get(s[i], 0)
-    
-    for r in range(len(s)):
-        sCount[s[r]] = 1 + sCount.get(s[r], 0)
- 
-    
-        if tCount in sCount:
-            if min(len(s[l:r])) + 1 < curMinStringLen:
-                curMinStringLen = len(s[l:r]) + 1
-                curMinString = s[l:r]
 
 
 print(minWindowSubstring("ADOBECODEBANC", "ABC"))
