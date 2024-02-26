@@ -1,6 +1,6 @@
 # Personal leetcode Solution Repository
 
-A collection of solutions from practicing data structures and algorithms. All solutions will be done in Python 3.
+A collection of solutions from practicing data structures and algorithms. All solutions will be done in Python 3. This is not a comprehensive list, I have worked on _arrays, hashing, two pointers, and binary search_ algorithms before thinking to create this repository.
 
 Current Progress:
 | #   	| Name                                           	| Problem Type   	| Solution Time Complexity 	| Difficulty |
